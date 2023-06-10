@@ -1,8 +1,33 @@
-<div class="card text-center">
-    <h2>{{blog_title}}</h2>
-    <p>{{description}}</p>
-    <p> Made By {{user.name}} on {{format_date date_created}}</p>
-    <p>{{comment}}
-      <button class="btn btn-primary">Click to add comment</button>
-    </p>
-</div>
+<div class="container">
+  <div class="card text-center m-4">
+    <div class="card-header">
+      <h1>Welcome, {{username}}!!!</h1>
+      {{blog_title}}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{blog_title}}</h5>
+      <p class="card-text">{{blog_content}}</p>
+    </div>
+    <div class="card-footer text-body-secondary">
+      Post created by {{username}} {{blog_created}}
+    </div>
+    <div class="card card-body">
+      <div id="comment-list-{{id}}">
+        <div class="card card-body row">
+          <h5>Comments...</h5>
+          <div class="card-body">
+            {{#each comments as |comment|}}
+              <div class="col mb-2 border">
+                  <h4>{{comment.comment}}</h4>
+                  <p>{{comment.created_at}}</p>
+                  <button class="btn btn-sm btn-danger btn-delete-comment" data-delete-comment="{{id}}">DELETE</button>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <textarea class="form-control" id="comment-{{id}}" rows="3" placeholder="Write a comment..."></textarea>
+    <button type="button" class="btn btn-primary btn-comment m-2" data-comment="{{id}}">Add comment</button>
+    <script src="/js/blog.js"></script>
+    <script src="/js/post.js"></script>

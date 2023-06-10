@@ -1,54 +1,46 @@
-<div class="row">
-    <div class="col-auto">
-        <h2>Welcome To Your Dashboard, {{name}}!</h2>
-
+{{!-- Dashboard page --}}
+<div class="container">
+  <h1>Welcome,{{username}}</h1>
+  <h3 class="text-center">Create New Post</h3>
+  <form class="post-form">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Title</label>
+      <input type="text" class="form-control" id="post-title" placeholder="Title" />
     </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Content</label>
+      <textarea class="form-control" id="content" rows="3" placeholder="Write a post"></textarea>
+    </div>
+    <button class="btn btn-create-post btn-primary" type="submit">Create NewPost</button>
+  </form>
+</div>
+<div class="container justify-content-center">
+
+  {{!-- List of post created by user --}}
+  {{#each blogs as |blog|}}
+    <div class="card text-center m-4">
+      <div class="card-header">
+        {{blog.blog_title}}
+      </div>
+      <div class="card-body">
+        <h2>
+          <a href="/edit/{{blog.id}}">{{blog.blog_title}}</a>
+        </h2>
+        <p class="card-text">{{blog.blog_content}}</p>
+      </div>
+      <div class="card-footer text-body-secondary sec-btn-del">
+        <textarea class="form-control" id="post-content-edit-{{blog.id}}" rows="3" placeholder="Edit post"></textarea>
+        <button data-edit-post="{{blog.id}} " class="btn btn-success btn-edit-post">Edit</button>
+        <button data-delete-post="{{blog.id}} " class="btn btn-danger btn-delete-post">Delete</button>
+      </div>
+      Created {{username}} on: {{blog.blog_created}}
+      <div class="card card-body">
+      </div>
+    </div>
+  {{/each}}
 </div>
 
-<div class="row mt-4">
-    <div class="col-md-6">
-        <h3>Create a New Blog Post</h3>
-
-        <form class="form new-blog-form">
-            <div class="form-group">
-                <label for="title"> Title of New Post</label>
-                <input class="form-input" type="text" id="title" name="title" />
-
-            </div>
-            <div class="form-group">
-                <label for="description">Description of New Post:</label>
-                <textarea class="form-input" id="description" name="description"></textarea>
-
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Post</button>
-
-            </div>
-
-        </form>
-
-    </div>
-
-    {{#if blogPosts.length}}
-    <div class="col-md-6 blogList">
-        <h3>Current Blog</h3>
-
-        {{#each blogPosts as |blog|}}
-        <div class="row mb-2">
-            <div class="col-mb-8">
-                <h4><a href="/blog/{{blog.id}}">{{blog.name}}</a></h4>
-
-            </div>
-
-            <div class="col-mb-4">
-                <button class="btn btn-sm btn-secondary" data-id="{{blog.id}}">Remove blog</button>
-
-            </div>
-        
-        </div>
-        {{/each}}
-    </div>
-    {{/if}}
+<script src="/js/post.js"></script>
 
 
 </div>
